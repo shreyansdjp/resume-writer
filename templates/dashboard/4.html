@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block inlinestyle %}
+	<style type="text/css">
+		#fourth{
+			line-height: 10px;
+			background-color: #66a3ff;
+		}
+		#con{
+			padding-left: 100px;
+			padding-right: 100px;
+		}
+		#first{
+			background-color: #0052cc;
+		}
+		#second{
+			background-color: #0066ff;
+		}
+		#third{
+			background-color: #3385ff;
+		}
+		#fifth{
+			background-color: #99c2ff;
+		}
+		#fourthcoleighth{
+			margin-top: 35px;
+		}
+		#fifthcolfourth{
+			margin-top: 35px;
+			margin-left: 190px;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% include 'partials/_selectbutton.html' %}
+	{% include 'partials/_nextprev.html' with next=next prev=prev %}
+	<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="template_id" value="4">
+	</form>
+	<div class="container p-4"  id="con">
+	<div class="row" id="first">
+		<div class="col-6">
+			<h1 style="margin-bottom: -10px; font-size: 60px">User's </h1>
+			<h1 style="font-size: 60px">Name</h1>
+		</div>
+		<div class="col-6">
+			<hr align="right" style="border: 2px solid #fff; margin-bottom: 7px; margin-top: 10px; width: 50%;">
+			<h3 style="text-align: right;">Designation</h3>
+			<h3 style="text-align: right; margin-top: -3px">Hobby</h3>
+		</div>
+	</div>
+	<div class="row" id="second">
+		<div class="col-4">
+			<img src="{% static 'img/phoneicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>9654123655</p>
+		</div>
+		<div class="col-4">
+			<img src="{% static 'img/mailicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>ujejci@gmail.com</p>
+		</div>
+		<div class="col-4">
+			<img src="{% static 'img/arrowicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>flat no.-1,appt_name,district</p>
+		</div>
+	</div>
+	<div class="row" id="third">
+		<div class="col-4">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; margin-top: -10px; font-size: 25px">About Me</p>
+		</div>
+		<div class="col-8">
+			<p style="margin-top: 29px; font-family: Arial, Helvetica, sans-serif;">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+		</div>
+	</div>
+	<div class="row pt-4" id="fourth">
+		<div class="col-4">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; margin-top: 20px; font-size: 25px">Expirence</p>
+		</div>
+		<div class="col-8" id="fourthcoleighth">
+			<p style="line-height: 8px">year</p>
+			<p>company_name</p>
+			<p>designation</p>
+			<li>worked as blah at blah for blah and did what i do best i.e blah</li>
+			<p style="margin-top: 28px">year</p>
+			<p>company_name</p>
+			<p>designation</p>
+			<li>worked as blah at blah for blah and did what i do best i.e blah</li>
+			<p style="margin-top: 28px">year</p>
+			<p>company_name</p>
+			<p>designation</p>
+			<li style="padding-bottom: 25px">worked as blah at blah for blah and did what i do best i.e blah</li>
+		</div>
+	</div>
+	<div class="row pt-4" id="fifth">
+		<div class="col-2">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px;">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; font-size: 25px; margin-top: -8px">Skills</p>
+		</div>
+		<div class="col-4" id="fifthcolfourth">
+			<p>graphic design</p>
+			<p>photography</p>
+			<p>illustration</p>
+			<p>copywriting</p>
+			<p>motion graphics</p>
+		</div>
+		<div class="col-6">
+
+		</div>
+	</div>
+	</div>
+{% endblock %}

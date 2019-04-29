@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block style %}
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">
+{% endblock %}
+{% block inlinestyle %}
+	<style>
+	#userphoto
+	{
+		border-radius: 50%;
+		height: 125px;
+		width: 125px;
+	}
+	#namephoto
+	{
+		text-align: center;
+		background-color: #e0e0d1;
+		text-transform: uppercase;
+	}
+	#con
+	{
+		font-family: 'Source Sans Pro', sans-serif;
+		font-size: 15;
+	}
+	#leftside
+	{
+		padding-left: 25px;
+		padding-bottom: 40px;
+		background-color: #f5f5f0;
+		letter-spacing: 1px;
+	}
+	#rightside
+	{
+		padding-right: 25px;
+		padding-bottom: 40px;
+		background-color: #c2c2a3;
+		padding-left: 25px;
+		letter-spacing: 1px;
+	}
+	.addressimage
+	{
+		float: left;
+	    margin-right: 20px;
+	}
+	h5
+	{
+		text-transform: uppercase;
+		font-family: 'Lato', sans-serif;
+		font-weight: bold;
+	}
+	p
+	{
+		line-height: 11px;
+	}
+	</style>
+{% endblock %}
+{% block content %}
+	{% block includenav %} {% endblock %}
+	<div class="container no-print">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+                <form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="template_id" value="2">
+                </form>
+            </div>
+        </div>
+    </div>
+	<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="template_id" value="2">
+	</form>
+	<div class="container mt-4" id="con">
+		<div class="row" id="np">
+			<div class="col-12" id="namephoto">
+				<img  id="userphoto" src="{% static 'img/no-image.png' %}" style="padding-top: 10px"><br>
+				<h2 id="username" style="font-weight: bold;">{{ user.first_name }} {{ user.last_name }}</h2>
+				<!-- <h4 style="font-weight: bold;"></h4> -->
+			</div>
+		</div>
+		<div class="row" id="bottom">
+			<div class="col-6" id="leftside">
+				{% if basic_info %}
+				<h5 style="margin-top: 8px">Personal profile</h5>
+				{% if basic_info.address %}
+                <p>Address - {{ basic_info.address }}</p>
+                {% endif %}
+                {% if basic_info.linkedin_link %}
+                <p>LinkedIn - <a href="{{ basic_info.linkedin_link }}" target="_blank">{{ basic_info.linkedin_link }}</a></p>
+                {% endif %}
+                {% if basic_info.website_link %}
+                <p>Website - {{ basic_info.website_link }}</p>
+                {% endif %}
+				<img src="{% static 'img/line.jpg' %}" width="250" style="margin-bottom: 10px">
+				<h5>Contact</h5>
+				{% if basic_info.email %}
+				<!-- <p><img src="{% static 'img/arrowicon.jpg' %}" height="20" width="20" class="addressimage">hdihdjudgsuys</p> -->
+				<p><img src="{% static 'img/mailicon.jpg' %}" class="addressimage" height="20" width="20"></img>{{ basic_info.email }}</p>
+				{% endif %}
+                {% if basic_info.contact_no %}
+				<p><img src="{% static 'img/phoneicon.jpg' %}" class="addressimage" height="20" width="20"></img>{{ basic_info.contact_no }}</p>
+				<img src="{% static 'img/line.jpg' %}" width="250" style="margin-bottom: 10px">
+				{% endif %}
+				{% endif %}
+				{% if educations %}
+	            {% for education in educations %}
+	            <h5>Education</h5>
+	            <p>{{ education.from_where }} ({{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %}) <br> <br>{{ education.what }} with {{ education.grade }}</p>
+	            {% endfor %}
+	            {% endif %}
+			</div>
+			<div class="col-6" id="rightside">
+				{% if skills %}
+				<h5 style="margin-top: 8px">Skills</h5>
+				{% for skill in skills %}
+				<p>{{ skill.skill_name }} - {{ skill.rating }} out of 5</p>
+				{% endfor %}
+				<img src="{% static 'img/line.jpg' %}" width="250" style="margin-bottom: 10px">
+				{% endif %}
+				{% if experiences %}
+	            {% for exp in experiences %}
+	            <h5>Work Experience</h5>
+	            <p>{{ exp.where }} ({{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %}) for {{ exp.time_worked }} as {{ exp.position }} <br> <br>Description - {{ exp.description }}
+	            </p>
+	            {% endfor %}
+				<img src="{% static 'img/line.jpg' %}" width="250" style="margin-bottom: 10px">
+	            {% endif %}
+	            {% if achievements %}
+				<h5>Achievements</h5>
+	            {% for achievement in achievements %}
+	            <p>{{ achievement.achievement }}</p>
+	            {% endfor %}
+	            {% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

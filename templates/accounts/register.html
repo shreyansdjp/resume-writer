@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} | Register {% endblock %}
+
+{% block content %}
+    <section id="register" class="p-4 m-4">
+        <div class="container">
+            <div class="row d-flex justify-content-center pt-4">
+                <div class="col-md-8">
+                    {% include 'partials/_alerts.html' %}
+                    <form action="{% url 'accounts:register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="first_name" class="col-form-label">First Name</label>
+                            <input type="text" name="first_name" class="form-control" placeholder="Your First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name" class="col-form-label">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" placeholder="Your Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="username" class="col-form-label">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="Your chosen username.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Your email address.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password" class="col-form-label">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Your password.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_password" class="col-form-label">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control" placeholder="Confirm your password.." required>
+                        </div>
+                        <div class="form-group">
+                            <p class="text-center text-muted">
+                                <small>Already Registered? <a href="{% url 'accounts:login' %}">Login</a></small>
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block btn-success">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

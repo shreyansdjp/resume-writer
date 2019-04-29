@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% include 'partials/_selectbutton.html' %}
+	{% include 'partials/_nextprev.html' with next=next prev=prev %}
+	<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="template_id" value="3">
+	</form>
+	<div class="container mt-4" id="con">
+		<div class="row">
+			<div class="col-4 bg-info text-white pt-4">
+			    <h3 id="resume">Resume</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<h2 id="user_name">Harry</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4 bg-info text-white pt-4"  id="column1">
+					<h3>Profile</h3>
+					<hr style="border: 1px solid white">
+					<h5>Date of birth</h5>
+					<p>12/2/1999</p>
+					<h5>Address</h5>
+					<p>flat no.-23,</p>
+					<p>ddjd appt.,</p>
+					<p>sector-40,delhi</p>
+					<h5>Phone</h5>
+					<p>7392772245</p>
+					<h5>E-mail</h5>
+					<p>jdkdndjk@gmail.com</p>
+					<h3>Social Media</h3>
+					<hr style="border: 1px solid white">
+					<h5>Linkedin</h5>
+					<p>@dudhjd</p>
+					<h5>Github</h5>
+					<p>@fdndjd</p>
+			</div>
+			<div class="col-8 pl-4 pt-4" id="column2">
+				<h3> job expirences</h3>
+				<hr style="border: 1px solid #17a2b8">
+					<div class="row">
+						<div class="col-2" >
+							<p > 2015-2016 </p><br>
+							<p> 2016-2017</p>
+						</div>
+						<div class="col-10">
+							<h5>cyber media production</h5>
+							<p> master of arts</p>
+							<h5>market studio</h5>
+							<p> bjmc </p>
+						</div>
+					</div>
+				<h3>Education</h3>
+				<hr style="border: 1px solid #17a2b8">
+				<div class="row">
+						<div class="col-2" >
+							<p > 2001-2003 </p><br>
+							<p> 1997-2000</p>
+						</div>
+						<div class="col-10">
+							<h5>NIT</h5>
+							<p> BCA</p>
+							<h5>DU</h5>
+							<p> Economic honours</p>
+						</div>
+				</div>
+				<h3>Skills</h3>
+				<hr style="border: 1px solid #17a2b8">
+				<div class="row">
+					<div class="col-6">
+						<ul>
+							<li>Print</li>
+							<li>Brouchers & newsletters</li>
+							<li>Logos & business cards</li>
+							<li>Stationary</li>
+						</ul>
+					</div>
+					<div class="col-6">
+						<ul>
+							<li>Web & multimedia</li>
+							<li>Website design</li>
+							<li>Video editing</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

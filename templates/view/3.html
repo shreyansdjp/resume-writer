@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	{% block includenav %} {% endblock %}
+	<div class="container no-print">
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+				<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="template_id" value="1">
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-4" id="con">
+		<div class="row">
+			<div class="col-4 bg-info text-white pt-4">
+			    <h3 id="resume">Resume</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<h2 id="user_name">{{ user.first_name }} {{ user.last_name }}</h2>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-4 bg-info text-white pt-4"  id="column1">
+				{% if basic_info %}
+				<h3>Profile</h3>
+				<hr style="border: 1px solid white">
+				<!-- <h5>Date of birth</h5>
+				<p>12/2/1999</p> -->
+				<h5>Address</h5>
+				<p>{{ basic_info.address }}</p>
+				<h5>Phone</h5>
+				<p>{{ basic_info.contact_no }}</p>
+				<h5>E-mail</h5>
+				<p>{{ basic_info.email }}</p>
+				<h3>Social Media</h3>
+				<hr style="border: 1px solid white">
+				<h5>Linkedin</h5>
+				<p>{{ basic_info.linkedin_link }}</p>
+				<!-- <h5>Github</h5>
+				<p>@fdndjd</p> -->
+				{% endif %}
+			</div>
+			<div class="col-8 pl-4 pt-4" id="column2">
+				{% if experiences %}
+				{% for exp in experiences %}
+				<h3>Job Experiences</h3>
+				<hr style="border: 1px solid #17a2b8">
+				<div class="row">
+					<div class="col-4">
+						<p>{{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %}</p><br>
+					</div>
+					<div class="col-8">
+						<h5>{{ exp.where }}</h5>
+						<p>{{ exp.position }}</p>
+					</div>
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% if educations %}
+				<h3>Education</h3>
+				<hr style="border: 1px solid #17a2b8">
+				{% for education in educations %}
+				<div class="row">
+					<div class="col-4">
+						<p>{{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %}</p><br>
+					</div>
+					<div class="col-8">
+						<h5>{{ education.from_where }}</h5>
+						<p>{{ education.what }} with {{ education.grade }}</p>
+					</div>
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% if skills %}
+				<h3>Skills</h3>
+				<hr style="border: 1px solid #17a2b8">
+				<div class="row">
+					<div class="col-6">
+						<ul>
+							{% for skill in skills %}
+							<li>{{ skill.skill_name }} - {{ skill.rating }} out of 5</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				{% endif %}
+				{% if achievements %}
+				<h3>Achievements</h3>
+				<hr style="border: 1px solid #17a2b8">
+				<div class="row">
+					<div class="col-12">
+						<ul>
+							{% for achievement in achievements %}
+							<li>{{ achievement.achievement }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

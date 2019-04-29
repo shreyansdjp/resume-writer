@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <div class="row">
+        {% if prev < "1" %}
+        <div class="col-md-6 d-flex justify-content-center">
+            <a class="btn btn-outline-danger px-4 disabled">Prev</a>
+        </div>
+        {% elif prev >= "1" %}
+        <div class="col-md-6 d-flex justify-content-center">
+            <a href="javascript:{document.getElementById('prev').submit()}" class="btn btn-outline-danger px-4">Prev</a>
+        </div>
+        {% endif %}
+        {% if next > "7" %}
+        <div class="col-md-6 d-flex justify-content-center">
+            <a class="btn btn-success px-4 disabled">Next</a>
+        </div
+        {% elif next <= "7" %}
+        <div class="col-md-6 d-flex justify-content-center">
+            <a href="javascript:{document.getElementById('next').submit()}" class="btn btn-success px-4">Next</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <form action="{% url 'accounts:dashboard' %}" id="prev" method="GET">
+        <input type="hidden" name="page_no" value="{{ prev }}">
+    </form>
+    <form action="{% url 'accounts:dashboard' %}" id="next" method="GET">
+        <input type="hidden" name="page_no" value="{{ next }}">
+    </form>
+</div>

@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <header>
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-1 text-center special">Resume Writer</h1>
+                    <h3 class="text-lead text-center text-white">Build Beautiful, Free and Professional Resumes</h3>
+                    <a href="{% url 'accounts:register' %}" class="btn btn-block btn-danger">Get Started</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="basic-padding">
+        <div class="container">
+            <h2 class="display-4 text-center mb-4">About</h2>
+            <div class="row">
+                <div class="col-md">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat eius molestias error, quos voluptas nisi aliquam excepturi odio blanditiis, magni, fugit. Deserunt temporibus eum ipsum aliquam, hic quaerat, alias consequuntur. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <hr>
+    </div>
+
+    <section id="feature" class="basic-padding">
+        <div class="container">
+            <h2 class="display-4 text-center mb-4">Easy to Use</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h3 class="text-center">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <strong class="fa-stack-1x" style="color: white;">1</strong>
+                        </span>
+                    </h3>
+                    <h4 class="text-lead text-center">Select a Resume Design</h4>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3 class="text-center">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <strong class="fa-stack-1x" style="color: white;">2</strong>
+                        </span>
+                    </h3>
+                    <h4 class="text-lead text-center">Enter your Information</h4>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h3 class="text-center">
+                        <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <strong class="fa-stack-1x" style="color: white;">3</strong>
+                        </span>
+                    </h3>
+                    <h4 class="text-lead text-center">View Your Beautiful Resume</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid">
+        <hr>
+    </div>
+
+    <section id="reviews" class="basic-padding">
+        <div class="container">
+            <h2 class="display-4 text-center mb-4">Reviews</h2>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <footer class="blockquote-footer"><cite title="Source Title">Shreyans Jain</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <footer class="blockquote-footer"><cite title="Source Title">Shubbham Jain</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <blockquote class="blockquote">
+                                <p class="mb-0 text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                <footer class="blockquote-footer"><cite title="Source Title">Prabhupada Mohanty</cite></footer>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-2 bg-light">
+        <div class="container">
+            <p class="text-monospace mt-3 text-center">Copyright &copy; 2018</p>
+        </div>
+    </footer>
+{% endblock %}

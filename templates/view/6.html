@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block style %}<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">{% endblock %}
+{% block inlinestyle %}
+	<style>
+		#con
+		{
+			padding-right: 170px;
+			padding-left: 170px;
+			font-family: 'Kaushan Script', cursive;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		#leftside
+		{
+			text-align: left;
+			padding-left: 25px;
+			background-color: #80ffbf;
+			line-height: 0.7
+		}
+		#rightside
+		{
+			padding-right: 25px;
+			background-color: #80ffbf;
+			object-position: right;
+			position: relative;
+			line-height: 0.7
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% block includenav %} {% endblock %}
+	<div class="container no-print">
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+				<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="template_id" value="1">
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container" id="con">
+   		<div class="row">
+			<div class="col-6" id="leftside">
+				{% if basic_info %}
+				<h4>CONTACT</h4>
+				{% if basic_info.website_link %}
+				<p>{{ basic_info.website_link }}</p>
+				{% endif %}
+				{% if basic_info.email %}
+				<p>{{ basic_info.email }}</p>
+				{% endif %}
+				{% if basic_info.contact_no %}
+ 			   	<p>{{ basic_info.contact_no }}</p>
+ 			   	{% endif %}
+				{% endif %}
+				<hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+	            <H4 style="text-align:center">SKILLS</H4><BR><br>
+                <ul>
+                	{% if skills %}
+					{% for skill in skills %}
+					<li class="mb-4">{{ skill.skill_name }} - {{ skill.rating }}/5</li>
+					{% endfor %}
+					{% endif %}
+                </ul>
+				<hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+	            <H4 style="text-align:center">WORK EXPERIENCE</H4><BR><br>
+				{% if experiences %}
+				{% for exp in experiences %}
+				<p>{{ exp.position }} for {{ exp.time_worked }} - </p>
+				<br>
+				<p class="text-white">{{ exp.where }} ({{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %})</p>
+				{% endfor %}
+				{% endif %}
+			</div>
+	      	<div class="col-6" id="rightside">
+				<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+				<!-- <P>SOFTWARE ENGINERE</p> -->
+				<HR style="border: 1px solid white; margin-top: 50px; width: 300px">
+	            <H4 style="line-height: 2;"> EDUCATION</H4>
+				{% if educations %}
+				{% for education in educations %}
+				<p>{{ education.what }} with {{ education.grade }} - </p>
+				<br>
+				<p class="text-white">{{ education.from_where }} ({{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %})</p>
+				{% endfor %}
+				{% endif %}
+	            <hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+
+	            <H4> ACHIVEMENTS</H4><BR>
+	           	<ul>
+					{% if achievements %}
+					{% for achievement in achievements %}
+					<li class="mb-4">{{ achievement.achievement}}</li>
+					{% endfor %}
+					{% endif %}
+	           	</ul>
+	            <!-- <hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+	            <h4>SKILLS</h4>
+	            <P style="text-align:Left" style="line-height: 0.3">JAVA </P>
+				<P style="text-align:Left"style="line-height: 0.3"> C AND C++</p>
+				<P style="text-align:Left"style="line-height: 0.3"> HTML,CSS & JSCRIPT </p>
+				<P style="text-align:Left"style="line-height: 0.3"> PYTHON</p> -->
+			</div>
+      	</div>
+    </div>
+{% endblock %}

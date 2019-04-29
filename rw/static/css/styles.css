@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster+Two:400i');
+
+.special {
+    font-family: 'Lobster Two', cursive;
+}
+
+header .row:first-child {
+    height: 500px;
+}
+
+header {
+    background-image: url('../img/resumeheader.jpg');
+    background-size: cover;
+    /* background-attachment: fixed; */
+}
+
+header h1 {
+    color: white;
+}
+
+.basic-padding {
+    margin-top: 80px;
+    margin-bottom: 80px;
+}
+
+.card {
+    -webkit-box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+@media print {
+    .no-print, .no-print * {
+        display: none !important;
+    }
+}

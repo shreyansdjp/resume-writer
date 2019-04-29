@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block style %}<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">{% endblock %}
+{% block inlinestyle %}
+    <style>
+        #contain{
+          align-content: center;
+          font-family: 'Indie Flower', cursive;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+        #Column1{
+          color: white;
+          background-color:#280a03;
+        }
+        #Column2{
+          background-color:#c6c6c6;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% block includenav %} {% endblock %}
+	<div class="container no-print">
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+				<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="template_id" value="1">
+				</form>
+			</div>
+		</div>
+	</div>
+    <div class="container p-4" id="contain">
+        <div class="row" id="rows">
+            <!-- leftside -->
+            <div class="col-5" id="Column1">
+                <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                {% if basic_info %}
+                <h2>PROFILE</h2>
+                {% if basic_info.contact_no %}
+                <p style="line-height:0.5">{{ basic_info.contact_no }}</p>
+                {% endif %}
+                {% if basic_info.email %}
+                <p style="line-height:0.5">{{ basic_info.email }}</p>
+                {% endif %}
+                {% if basic_info.linkedin_link %}
+                <p style="line-height:0.5">
+                    <a href="{{ basic_info.linkedin_link }}" class="text-white">{{ basic_info.linkedin_link }}</a>
+                </p>
+                {% endif %}
+                {% if basic_info.website_link %}
+                <p style="line-height:0.5">
+                    <a href="{{ basic_info.website_link }}" class="text-white">{{ basic_info.website_link }}</a>
+                </p>
+                {% endif %}
+                {% if basic_info.address %}
+                <p style="line-height:0.5">{{ basic_info.address }}</p>
+                {% endif %}
+                {% endif %}
+
+                {% if educations %}
+                <h2>ACADEMIC QUALIFICATION</H2>
+                {% for education in educations %}
+                <H4>{{ education.what }} ({{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %})</H4>
+                <P>{{ education.from_where }}</P>
+                {% endfor %}
+                {% endif %}
+                {% if achievements %}
+                <H2>ACHIVEMENTS</H2>
+                {% for ach in achievements %}
+                <ul>
+                    <li>{{ ach.achievement }}</li>
+                </ul>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <!-- rightside -->
+            <div class="col-7" id="Column2">
+                {% if skills %}
+                <h2>SKILLS</h2>
+                <ul>
+                    {% for skill in skills %}
+                    <li>{{ skill.skill_name }} - {{ skill.rating }}/5</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+                {% if experiences %}
+                <h2>WORK EXPERIENCE</h2>
+                {% for exp in experiences %}
+                <h4>{{ exp.where }} ({{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %})</h4>
+                <p>{{ exp.position }}</p>
+                {% endfor %}
+                {% endif %}
+             </div>
+        </div>
+    </div>
+{% endblock %}

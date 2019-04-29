@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block style %}<link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">{% endblock %}
+{% block inlinestyle %}
+    <style>
+        #contain{
+          align-content: center;
+          padding-left: 90px;
+          padding-right: 90px;
+          font-family: 'Indie Flower', cursive;
+          padding-top: 10px;
+          padding-bottom: 10px;
+        }
+        #Column1{
+          color: white;
+          background-color:#280a03;
+        }
+        #Column2{
+          background-color:#c6c6c6;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include 'partials/_selectbutton.html' %}
+    {% include 'partials/_nextprev.html' with next=next prev=prev %}
+    <form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="template_id" value="7">
+    </form>
+    <div class="container" id="contain">
+        <div class="row" id="rows">
+            <!-- leftside -->
+            <div class="col-5" id="Column1">
+                <h1>HARRY POTTER</h1>
+                <p>PHD IN GEOGRAPHY</p>
+                <h2> PROFILE </h2>
+                <P>Highly developed research qualitative and analatical skill with stong capacity to conduct independent research.</p>
+                <h2> CONTACT</h2>
+                <p style="line-height:0.5">897187836781</p>
+                <p style="line-height:0.5">hello@harrypotter.com</P><BR>
+                <h2>ACADEMIC QUALIFICATION</H2>
+                <H4>PHD IN GEOGRAPHY</H4>
+                <P >JAWAHARLAL NEHRU UNIVERSITY</P>
+                <H4 > MA IN GEOGRAPHY</H4>
+                <P > DELHI UNIVERSITY </p>
+                <H2>ACHIVEMENTS</H2>
+                <li> GOLD MEDALIST IN UNIVERSITY</LI>
+                <LI> BEST JOURNAL PUBLICATION AWARD 2018</LI>
+            </div>
+            <!-- rightside -->
+            <div class="col-7" id="Column2">
+                <h2>BASIC COMPUTER SKILL</h2>
+                <ul>
+                    <LI>MS WORD</LI>
+                    <li>MS EXCELL</LI>
+                    <LI>BASIC C AND C++</LI><BR>
+                    <H2>PUBLICATIONS</H2>
+                    <LI>Atmospheric Sciences</LI>
+                    <LI>Earth System Sciences</LI>
+                    <LI>Geographical Information Systems</LI><BR>
+                    <H2>INTRESTS</H2>
+                    <LI>READING ABOUT HISTORY</LI>
+                    <LI>PLAYING AND WATCHING CRICKET</lI>
+                    <LI> TARVELLING </LI>
+                </ul>
+             </div>
+        </div>
+    </div>
+{% endblock %}

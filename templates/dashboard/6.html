@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block style %}<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">{% endblock %}
+{% block inlinestyle %}
+	<style>
+		#con
+		{
+			padding-right: 170px;
+			padding-left: 170px;
+			font-family: 'Kaushan Script', cursive;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		#leftside
+		{
+			text-align: left;
+			padding-left: 25px;
+			background-color: #80ffbf;
+			line-height: 0.7
+		}
+		#rightside
+		{
+			padding-right: 25px;
+			background-color: #80ffbf;
+			object-position: right;
+			position: relative;
+			line-height: 0.7
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% include 'partials/_selectbutton.html' %}
+	{% include 'partials/_nextprev.html' with next=next prev=prev %}
+	<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="template_id" value="6">
+	</form>
+	<div class="container" id="con">
+   		<div class="row">
+			<div class="col-6" id="leftside">
+				<h4>CONTACT</h4>
+				<p>www.google.com</p>
+				<p>google@gmail.com</p>
+	            <p>8977226666</p>
+				<P style="color: white; padding-top: 35px">JAWAHARLAL NEHRU UNIVERSITY</P>
+				<p style="color: white" style="text-align:Left">2016-PRESENT</p><br>
+				<p style="color: white">VIPS</p>
+				<P style="color: white">2013-2016</P><BR>
+				<P style="color: white">KENDRIYA VIDYALAYA NO-2</P>
+				<P style="color: white; margin-bottom:-15px;">2012-2013</P>
+				<hr style="border: 1px solid white; margin-top: 70px; width: 300px">
+	            <H4 style="text-align:center">INTRESTS</H4><BR><br>
+                <ul>
+                	<LI style="line-height:2 ">READING BOOKS</LI>
+                    <LI>PLAYING BADMINTON</LI>
+                </ul>
+			</div>
+	      	<div class="col-6" id="rightside">
+				<h1>HANNAH BAKER</h1>
+				<P>SOFTWARE ENGINERE</p>
+				<HR style="border: 1px solid white; margin-top: 50px; width: 300px">
+	            <H4 style="line-height: 2;"> EDUCATION</H4>
+				<p> MASTER OF COMPUTER APPLICATION </p>
+				<P> EXPECTED GARDUATION 2020</P><BR>
+				<P> BACHELOR OF COMPUTER APPLICATION</P>
+				<P> MAJOR IN INFORMATION SYSTEM </P><BR>
+	            <P> CLASS 12TH IN SCIENCE STREAM </p>
+	            <hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+
+	            <H4> ACHIVEMENTS</H4><BR>
+	           	<ul>
+	           		<li style="line-height:1.5"> INTERNSHIP IN GOOGLE AND MICROSOFT COMPANY</li>
+					<li style="line-height:1.5">IT WORKSHOPS AND SEMINARS</li>
+	                <li>UNIVERSITY GOLD MEDALIST </li>
+	           	</ul>
+	            <hr style="border: 1px solid white; width: 300px; margin-top: 43px">
+	            <h4>SKILLS</h4>
+	            <P style="text-align:Left" style="line-height: 0.3">JAVA </P>
+				<P style="text-align:Left"style="line-height: 0.3"> C AND C++</p>
+				<P style="text-align:Left"style="line-height: 0.3"> HTML,CSS & JSCRIPT </p>
+				<P style="text-align:Left"style="line-height: 0.3"> PYTHON</p>
+			</div>
+      	</div>
+    </div>
+{% endblock %}

@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="mt-4">
+        {% include 'partials/_alerts.html' %}
+    </div>
+    <section class="mt-4">
+        <div class="container-fluid">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a class="nav-item nav-link active" id="basic-info-tab" data-toggle="tab" href="#basic-info" role="tab">Basic Info</a>
+                    <a class="nav-item nav-link" id="education-tab" data-toggle="tab" href="#education" role="tab">Education</a>
+                    <a class="nav-item nav-link" id="experience-tab" data-toggle="tab" href="#experience" role="tab">Experience</a>
+                    <a class="nav-item nav-link" id="achievements-tab" data-toggle="tab" href="#achievements" role="tab">Achievements</a>
+                    <a class="nav-item nav-link" id="skills-tab" data-toggle="tab" href="#skills" role="tab">Skills</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active mt-4" id="basic-info" role="tabpanel">
+                    <h1 class="text-center text-lead">Basic Information</h1>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            <form action="{% url 'info:basic_info' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="contact_no" class="col-form-label">Contact Number</label>
+                                    <input type="text" name="contact_no" class="form-control" placeholder="Contact Number" {% if basic_info %}value="{{ basic_info.contact_no }}"{% endif %}>
+                                </div>
+                                <div class="form-group">
+                                    <label for="website_url" class="col-form-label">Personal Website URL</label>
+                                    <input type="url" name="website_url" class="form-control" placeholder="Personal Website link" {% if basic_info %}value="{{ basic_info.website_link }}"{% endif %}>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-form-label">Email Address*</label>
+                                    <input type="email" name="email" class="form-control" placeholder="Email Address" {% if basic_info %}value="{{ basic_info.email }}"{% endif %} required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="linkedin_url" class="col-form-label">LinkedIn Profile URL*</label>
+                                    <input type="url" name="linkedin_url" class="form-control" placeholder="LinkedIn Profile URL" {% if basic_info %}value="{{ basic_info.linkedin_link }}"{% endif %} required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address" class="col-form-label">Address</label>
+<textarea name="address" class="form-control" placeholder="Your address" rows="8" cols="80">{% if basic_info %}{{ basic_info.address }}{% endif %}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade mt-4" id="education" role="tabpanel">
+                    <h1 class="text-center text-lead">Education</h1>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            {% if educations %}
+                            {% for education in educations %}
+                            <form action="{% url 'info:update_education' education.id %}" class="border p-4" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="from_where" class="col-form-label">Where?</label>
+                                    <input type="text" name="from_where" class="form-control" value="{{ education.from_where }}" autocomplete="off" placeholder="From where did you complete your education?">
+                                </div>
+                                <div class="form-group">
+                                    <label for="what" class="col-form-label">What did you study?</label>
+                                    <input type="text" name="what" class="form-control" value="{{ education.what }}" placeholder="Example - UnderGraduate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_started" class="col-form-label">Date Started</label>
+                                    <input type="date" name="date_started" class="form-control" value='{{ education.date_started | date:"Y-m-d" }}' placeholder="Date you started it">
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_ended" class="col-form-label">Date Ended</label>
+                                    <input type="date" name="date_ended" class="form-control" value='{{ education.date_ended | date:"Y-m-d" }}' placeholder="Date it ended..leave blank if going on">
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="is_going_on" {% if education.is_going_on %}checked{% endif %}>
+                                    <label for="is_going_on" class="col-form-label">Is it still going on</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="grades" class="col-form-label">Grades Achieved</label>
+                                    <input type="text" name="grades" class="form-control" value="{{ education.grade }}" placeholder="Grades you achieved">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Update</button>
+                                    <a href="javascript:{document.getElementById('deleteEdu').submit()}" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                                <br>
+                            </form>
+                            <form action="{% url 'info:update_education' education.id %}" id="deleteEdu" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value="education.id">
+                            </form>
+                            {% endfor %}
+                            {% endif %}
+                            <form action="{% url 'info:education' %}" class="p-4 my-2" method="POST">
+                                {% csrf_token %}
+                                <fieldset>
+                                    <legend>New Education</legend>
+                                    <div class="form-group">
+                                        <label for="from_where" class="col-form-label">Where?</label>
+                                        <input type="text" name="from_where" class="form-control" autocomplete="off" placeholder="From where did you complete your education?">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="what" class="col-form-label">What did you study?</label>
+                                        <input type="text" name="what" class="form-control" placeholder="Example - UnderGraduate">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date_started" class="col-form-label">Date Started</label>
+                                        <input type="date" name="date_started" class="form-control" placeholder="Date you started it">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date_ended" class="col-form-label">Date Ended</label>
+                                        <input type="date" name="date_ended" class="form-control" placeholder="Date it ended..leave blank if going on">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="is_going_on">
+                                        <label for="is_going_on" class="col-form-label">Is it still going on</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grades" class="col-form-label">Grades Achieved</label>
+                                        <input type="text" name="grades" class="form-control" placeholder="Grades you achieved">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade mt-4" id="experience" role="tabpanel">
+                    <h1 class="text-center text-lead">Work Experience</h1>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            {% if experiences %}
+                            {% for exp in experiences %}
+                            <form action="{% url 'info:update_work_exp' exp.id %}" class="border p-4" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="hidden" name="work_exp" value="{{ exp.id }}">
+                                    <label for="from_where" class="col-form-label">Where?</label>
+                                    <input type="text" name="from_where" class="form-control" value="{{ exp.where }}" placeholder="Where did you work?" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_started" class="col-form-label">Date Started</label>
+                                    <input type="date" name="date_started" class="form-control" value='{{ exp.date_started | date:"Y-m-d" }}' placeholder="Date you started it" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="date_ended" class="col-form-label">Date Ended</label>
+                                    <input type="date" name="date_ended" class="form-control" value='{{ exp.date_ended  | date:"Y-m-d" }}' placeholder="Date it ended..leave blank if going on">
+                                </div>
+                                <div class="form-group">
+                                    <input type="checkbox" name="is_going_on" {% if exp.is_going_on %}checked{% endif %}>
+                                    <label for="is_going_on" class="col-form-label">Is it still going on</label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="time_worked" class="col-form-label">Time Period</label>
+                                    <input type="text" name="time_worked" class="form-control" value="{{ exp.time_worked }}" placeholder="Example - 3 years, 4 months" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="position" class="col-form-label">Position</label>
+                                    <input type="text" name="position" class="form-control" value="{{ exp.position }}" placeholder="Example - Lawyer" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description" class="col-form-label">Description about the Work</label>
+                                    <input type="text" name="description" class="form-control" value="{{ exp.description }}" placeholder="Example - I worked there as a Sales Executive" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Update</button>
+                                    <a href="javascript:{document.getElementById('deleteExp').submit()}" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                                <br>
+                            </form>
+                            <form action="{% url 'info:update_work_exp' exp.id %}" id="deleteExp" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value="exp.id">
+                            </form>
+                            {% endfor %}
+                            {% endif %}
+                            <form action="{% url 'info:work_exp' %}" class="p-4" method="POST">
+                                {% csrf_token %}
+                                <fieldset>
+                                    <legend>New Work Experience</legend>
+                                    <div class="form-group">
+                                        <label for="from_where" class="col-form-label">Where?</label>
+                                        <input type="text" name="from_where" class="form-control" placeholder="Where did you work?" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date_started" class="col-form-label">Date Started</label>
+                                        <input type="date" name="date_started" class="form-control" placeholder="Date you started it" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="date_ended" class="col-form-label">Date Ended</label>
+                                        <input type="date" name="date_ended" class="form-control" placeholder="Date it ended..leave blank if going on">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="checkbox" name="is_going_on">
+                                        <label for="is_going_on" class="col-form-label">Is it still going on</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="time_worked" class="col-form-label">Time Period</label>
+                                        <input type="text" name="time_worked" class="form-control" placeholder="Example - 3 years, 4 months" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position" class="col-form-label">Position</label>
+                                        <input type="text" name="position" class="form-control" placeholder="Example - Lawyer" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="description" class="col-form-label">Description about the Work</label>
+                                        <input type="text" name="description" class="form-control" placeholder="Example - I worked there as a Sales Executive" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade mt-4" id="achievements" role="tabpanel">
+                    <h1 class="text-center text-lead">Achievements</h1>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            {% if achievements %}
+                            {% for achievement in achievements %}
+                            <form action="{% url 'info:update_achievements' achievement.id %}" class="border px-4 pt-4 pb-2 m-2" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" name="achievement" class="form-control" value="{{ achievement.achievement }}" placeholder="Example - 1st in Cooking Competition held in Brooklyn">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Update</button>
+                                    <a href="javascript:{document.getElementById('deleteAch').submit()}" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            </form>
+                            <form action="{% url 'info:update_achievements' achievement.id %}" id="deleteAch" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value="achievement.id">
+                            </form>
+                            {% endfor %}
+                            {% endif %}
+                            <form action="{% url 'info:achievements' %}" class="px-4 pt-4 pb-2" method="POST">
+                                {% csrf_token %}
+                                <fieldset>
+                                    <legend>New Achievement</legend>
+                                    <div class="form-group">
+                                        <input type="text" name="achievement" class="form-control" placeholder="Example - 1st in Cooking Competition held in Brooklyn">
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success">Add</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade mt-4" id="skills" role="tabpanel">
+                    <h1 class="text-center text-lead">Skills</h1>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">
+                            {% if skills %}
+                            {% for skill in skills %}
+                            <form action="{% url 'info:update_skills' skill.id %}" class="border px-4 pt-4 pb-2 m-2" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <input type="hidden" name="{{ skill.skill_name }}" value="{{ skill.id }}">
+                                        <input type="text" name="skill_name" class="form-control" placeholder="Skill name" value="{{ skill.skill_name }}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="number" name="skill_rating" min="1" max="5" class="form-control" value="{{ skill.rating }}" placeholder="rating (out of 5)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info">Update</button>
+                                    <a href="javascript:{document.getElementById('deleteSkill').submit()}" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            </form>
+                            <form action="{% url 'info:update_skills' skill.id %}" id="deleteSkill" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="delete" value="skill.id">
+                            </form>
+                            {% endfor %}
+                            {% endif %}
+                            <form action="{% url 'info:skills' %}" class="px-4 pt-4 pb-2" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="form-group col-md-8">
+                                        <input type="text" name="skill_name" class="form-control" placeholder="Skill name">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <input type="number" name="skill_rating" min="1" max="5" class="form-control" placeholder="rating (out of 5)">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block inlinestyle %}
+	<style>
+		#con{
+			margin-top: 10px;
+			background-color: #f4f2f1;
+		}
+		#first{
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+		#secondcoltwelth{
+			margin-top: 35px;
+		}
+		#thirdcoltwelth{
+			margin-top: 55px;
+		}
+		#fourthcolsixth{
+			margin-top: 55px;
+			font-size: 15px;
+		}
+		#fourthcolsixthtwo{
+			margin-top: 55px;
+			font-size: 15px;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% block includenav %} {% endblock %}
+	<div class="container no-print">
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+				<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="template_id" value="1">
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container p-4">
+		<div class="row" id="first">
+			<div class="col-2">
+				<img src="{% static 'img/no-image.png' %}" width="130" height="130">
+			</div>
+			<div class="col-10">
+				<h2 style="margin-left: -25px">{{ user.first_name }} {{ user.last_name }}</h2>
+				<!-- <h3 style="margin-left: -25px">Designation</h3> -->
+				{% if basic_info %}
+				{% if basic_info.contact_no %}
+				<span class="float-left"><li style="margin-left: -25px; margin-top: 20px">{{ basic_info.contact_no }}</li></span>
+				{% endif %}
+				{% if basic_info.email %}
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">{{ basic_info.email }}</li></span>
+				{% endif %}
+				{% if basic_info.linkedin_link %}
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">{{ basic_info.linkedin_link }}</li></span>
+				{% endif %}
+				{% if basic_info.website_link %}
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">{{ basic_info.website_link }}</li></span>
+				{% endif %}
+				{% if basic_info.address %}
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">{{ basic_info.address }}</li></span>
+				{% endif %}
+				{% endif %}
+			</div>
+		</div>
+		<!-- <div class="row mt-4" id="second">
+			<div class="col-12" id="secondcoltwelth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f; margin-left: 450px; margin-right: 450px">PROFILE</h3>
+				<p style="border-style: solid;"></p>
+			</div>
+		</div> -->
+		{% if educations %}
+		<div class="row" id="third">
+			<div class="col-12" id="thirdcoltwelth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f; margin-left: 450px; margin-right: 450px">EDUCATION</h3>
+				{% for education in educations %}
+				<ul style="border-style: solid;">
+					<li>
+						{{ education.from_where }} ({{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %}) {{ education.what }} with {{ education.grade }}
+					</li>
+				</ul>
+				{% endfor %}
+			</div>
+		</div>
+		{% endif %}
+		<div class="row" id="fourth">
+			{% if experiences %}
+			<div class="col-6" id="fourthcolsixth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f;">WORK EXPIRENCE</h3>
+				{% for exp in experiences %}
+				<h5>{{ exp.where }}, {{ exp.position }}</h5>
+				<p>{{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %}</p>
+				<p>{{ exp.description }}</p>
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if skills %}
+			<div class="col-6" id="fourthcolsixthtwo">
+				<h3 align="center"style="margin-top: 7px; border-style: solid; background-color: #dfbf9f;">SKILLS</h3>
+				{% for skill in skills %}
+				<li>{{ skill.skill_name }} - {{ skill.rating }} out of 5</li>
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block inlinestyle %}
+	<style>
+		#con{
+			margin-top: 10px;
+			background-color: #f4f2f1;
+		}
+		#first{
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+		#secondcoltwelth{
+			margin-top: 35px;
+		}
+		#thirdcoltwelth{
+			margin-top: 55px;
+		}
+		#fourthcolsixth{
+			margin-top: 55px;
+			font-size: 15px;
+		}
+		#fourthcolsixthtwo{
+			margin-top: 55px;
+			font-size: 15px;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% include 'partials/_selectbutton.html' %}
+	{% include 'partials/_nextprev.html' with next=next prev=prev %}
+	<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+		{% csrf_token %}
+		<input type="hidden" name="template_id" value="5">
+	</form>
+	<div class="container p-4">
+		<div class="row" id="first">
+			<div class="col-2">
+				<img src="{% static 'img/no-image.png' %}" width="130" height="130">
+			</div>
+			<div class="col-10">
+				<h2 style="margin-left: -25px">User's name</h2>
+				<h3 style="margin-left: -25px">Designation</h3>
+				<span class="float-left"><li style="margin-left: -25px; margin-top: 20px">Phone_no.</li></span>
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">e-mail</li></span>
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">website_address</li></span>
+				<span class="float-left"><li style="margin-left: 150px; margin-top: 20px">state,country</li></span>
+			</div>
+		</div>
+		<div class="row mt-4" id="second">
+			<div class="col-12" id="secondcoltwelth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f; margin-left: 450px; margin-right: 450px">PROFILE</h3>
+				<p style="border-style: solid;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</div>
+		</div>
+		<div class="row" id="third">
+			<div class="col-12" id="thirdcoltwelth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f; margin-left: 450px; margin-right: 450px">EDUCATION</h3>
+				<p style="border-style: solid;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</div>
+		</div>
+		<div class="row" id="fourth">
+			<div class="col-6" id="fourthcolsixth">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f;">WORK EXPIRENCE</h3>
+				<h5>company_name,designation</h5>
+				<p>2013-2015</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+				<h5>company_name,designation</h5>
+				<p>2013-2015</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p>
+			</div>
+			<div class="col-6" id="fourthcolsixthtwo">
+				<h3 align="center" style="margin-top: 7px; border-style: solid; background-color: #dfbf9f;">SKILLS</h3>
+				<ul>Skilled in-</ul>
+				<li>designing</li>
+				<li>graphics</li>
+				<li>frontend</li>
+				<li>backend</li>
+				<li>java</li>
+				<li>css</li>
+				<li>management</li>
+				<li>business</li>
+				<li>photoshop</li>
+				<li>lightroom</li>
+			</div>
+		</div>
+	</div>
+{% endblock %}

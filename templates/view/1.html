@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block style %}<link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">{% endblock %}
+{% block inlinestyle %}
+    <style>
+        #con
+        {
+          font-family: 'Poor Story', cursive;
+          text-transform:uppercase;
+        }
+        #Heading
+        {
+          margin-top:35px;
+          padding-top:10px;
+        }
+        p
+        {
+          text-align: justify;
+        }
+        #leftside
+        {
+          background-color:#ffb3cc;
+        }
+        #rightside
+        {
+          background-color:#80ffff;
+        }
+        .row
+        {
+          text-align:justify;
+        }
+        #Heading
+        {
+          background-color:#94b8b8;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% block includenav %} {% endblock %}
+    <div class="container no-print">
+        <div class="row">
+            <div class="col-md-6">
+                <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+                <form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="template_id" value="1">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="con">
+        <div class="row">
+            <div class="col-12" id="Heading">
+            <h1 class="text-center">{{ user.first_name }} {{ user.last_name }}</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6" id="leftside">
+            <!--Left Column-->
+            <h3> profile</h3>
+            {% if basic_info %}
+                {% if basic_info.address %}
+                <p>Address - {{ basic_info.address }}</p>
+                {% endif %}
+                {% if basic_info.linkedin_link %}
+                <p>LinkedIn - <a href="{{ basic_info.linkedin_link }}" target="_blank">{{ basic_info.linkedin_link }}</a></p>
+                {% endif %}
+                {% if basic_info.website_link %}
+                <p>Website - {{ basic_info.website_link }}</p>
+                {% endif %}
+            <h3>contact</h3>
+                {% if basic_info.email %}
+                <p>Email - {{ basic_info.email }}</p>
+                {% endif %}
+                {% if basic_info.contact_no %}
+                <p>Contact Number - {{ basic_info.contact_no }}</p>
+                {% endif %}
+            {% endif %}
+            {% if skills %}
+            <h3>Skills</h3>
+            {% for skill in skills %}
+            <p>{{ skill.skill_name }} - {{ skill.rating }} out of 5</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-6" id="rightside">
+            <!-- Right Column -->
+            {% if educations %}
+            {% for education in educations %}
+            <h3>Education</h3>
+            <p>{{ education.from_where }} ({{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %}) - {{ education.what }} with {{ education.grade }}</p>
+            {% endfor %}
+            {% endif %}
+            {% if experiences %}
+            {% for exp in experiences %}
+            <h3>Work Experience</h3>
+            <p>{{ exp.where }} ({{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %}) for {{ exp.time_worked }} as {{ exp.position }} <br> Description - {{ exp.description }}
+            </p>
+            {% endfor %}
+            {% endif %}
+            {% if achievements %}
+            {% for achievement in achievements %}
+            <h3>Achievements</h3>
+            <p>{{ achievement.achievement }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

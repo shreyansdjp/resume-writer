@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %} | Profile {% endblock %}
+
+{% block content %}
+    <section id="register" class="p-4 m-4">
+        <div class="container">
+            <div class="row d-flex justify-content-center pt-4">
+                <div class="col-md-8">
+                    {% include 'partials/_alerts.html' %}
+                    <form action="{% url 'accounts:profile' %}" id="infoForm" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="info" value="1">
+                        <div class="form-group">
+                            <label for="first_name" class="col-form-label">First Name</label>
+                            <input type="text" name="first_name" class="form-control" value="{{user.first_name}}" placeholder="Your First Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="last_name" class="col-form-label">Last Name</label>
+                            <input type="text" name="last_name" class="form-control" value="{{user.last_name}}" placeholder="Your Last Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-form-label">Email Address</label>
+                            <input type="email" name="email" class="form-control" value="{{user.email}}" placeholder="Your email address.." required>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-block btn-success">Update</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" id="changePass" class="btn btn-info btn-block">Change Password</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <form action="{% url 'accounts:profile' %}" id="passForm" style="display:none;" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="password" value="1">
+                        <div class="form-group">
+                            <label for="old_pass" class="col-form-label">Old Password</label>
+                            <input type="password" name="old_pass" class="form-control" placeholder="Your old password.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="new_pass" class="col-form-label">New Password</label>
+                            <input type="password" name="new_pass" class="form-control" placeholder="Your new password.." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm_pass" class="col-form-label">Confirm New Password</label>
+                            <input type="password" name="confirm_pass" class="form-control" placeholder="Confirm new password.." required>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-block btn-success">Change Password</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="button" id="updateInfo" class="btn btn-info btn-block">Update Information</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

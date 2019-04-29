@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block inlinestyle %}
+	<style type="text/css">
+		#fourth{
+			line-height: 10px;
+			background-color: #66a3ff;
+		}
+		#con{
+			padding-left: 100px;
+			padding-right: 100px;
+		}
+		#first{
+			background-color: #0052cc;
+		}
+		#second{
+			background-color: #0066ff;
+		}
+		#third{
+			background-color: #3385ff;
+		}
+		#fifth{
+			background-color: #99c2ff;
+		}
+		#fourthcoleighth{
+			margin-top: 35px;
+		}
+		#fifthcolfourth{
+			margin-top: 35px;
+			margin-left: 190px;
+		}
+	</style>
+{% endblock %}
+{% block content %}
+	{% block includenav %} {% endblock %}
+	<div class="container no-print">
+		<div class="row">
+			<div class="col-md-6">
+				<a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-warning mt-4">GO BACK</a>
+				<form action="{% url 'accounts:dashboard' %}" id="select" method="POST">
+					{% csrf_token %}
+					<input type="hidden" name="template_id" value="1">
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="container p-4"  id="con">
+	<div class="row" id="first">
+		<div class="col-6">
+			<h1 style="margin-bottom: -10px; font-size: 60px">{{ user.first_name }}</h1>
+			<h1 style="font-size: 60px">{{ user.last_name }}</h1>
+		</div>
+		<div class="col-6">
+			<hr align="right" style="border: 2px solid #fff; margin-bottom: 7px; margin-top: 10px; width: 50%;">
+			<!-- <h3 style="text-align: right;">Designation</h3>
+			<h3 style="text-align: right; margin-top: -3px">Hobby</h3> -->
+		</div>
+	</div>
+	<div class="row" id="second">
+		{% if basic_info %}
+		{% if basic_info.contact_no %}
+		<div class="col-4">
+			<img src="{% static 'img/phoneicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>{{ basic_info.contact_no }}</p>
+		</div>
+		{% endif %}
+		{% if basic_info.email %}
+		<div class="col-4">
+			<img src="{% static 'img/mailicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>{{ basic_info.email }}</p>
+		</div>
+		{% endif %}
+		{% if basic_info.address %}
+		<div class="col-4">
+			<img src="{% static 'img/arrowicon.jpg' %}" width="30" height="30" style="margin: 30px; margin-left: 50px;">
+			<p>{{ basic_info.address }}</p>
+		</div>
+		{% endif %}
+	</div>
+	<div class="row" id="third">
+		<div class="col-4">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; margin-top: -10px; font-size: 25px">Profile</p>
+		</div>
+		<div class="col-8">
+			{% if basic_info.website_link %}
+			<p style="margin-top: 29px; font-family: Arial, Helvetica, sans-serif;">Personal Website - {{ basic_info.website_link }}</p>
+			{% endif %}
+			{% if basic_info.linkedin_link %}
+			<p style="margin-top: 29px; font-family: Arial, Helvetica, sans-serif;">LinkedIn - {{ basic_info.linkedin_link }}</p>
+			{% endif %}
+		</div>
+		{% endif %}
+	</div>
+	<div class="row" id="fourth">
+		<div class="col-4">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; margin-top: 20px; font-size: 25px">Work Experience</p>
+		</div>
+		<div class="col-8" id="fourthcoleighth">
+		{% if experiences %}
+		{% for exp in experiences %}
+			<p style="line-height: 8px">{{ exp.date_started }} - {% if exp.is_going_on %}Present{% else %}{{ exp.date_ended }}{% endif %}</p>
+			<p>{{ exp.where }}</p>
+			<p>{{ exp.position }}</p>
+			<li style="margin-bottom: 25px">{{ exp.description }}</li>
+		{% endfor %}
+		{% endif %}
+		</div>
+	</div>
+	<div class="row" id="fourth">
+		<div class="col-4">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; margin-top: 20px; font-size: 25px">Education</p>
+		</div>
+		<div class="col-8" id="fourthcoleighth">
+		{% if educations %}
+		{% for education in educations %}
+			<p style="line-height: 8px">{{ education.date_started }} - {% if education.is_going_on %}Present{% else %}{{ education.date_ended }}{% endif %}</p>
+			<p>{{ education.from_where }}</p>
+			<p>{{ education.what }}</p>
+			<li style="margin-bottom: 25px">with {{ education.grade }}</li>
+		{% endfor %}
+		{% endif %}
+		</div>
+	</div>
+	<div class="row" id="fifth">
+		<div class="col-2">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px;">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; font-size: 25px; margin-top: -8px">Skills</p>
+		</div>
+		<div class="col-4" id="fifthcolfourth">
+			{% if skills %}
+			{% for skill in skills %}
+			<p>{{ skill.skill_name }} - {{ skill.rating }}/5 </p>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="col-6"></div>
+	</div>
+	<div class="row" id="fifth">
+		<div class="col-2">
+			<hr align="left" style="border: 2px solid white; width: 200px; margin-left: 10px;">
+			<p style="text-transform: uppercase; margin-left: 10px; font-weight: bold; font-size: 25px; margin-top: -8px">Achievements</p>
+		</div>
+		<div class="col-4" id="fifthcolfourth">
+			{% if achievements %}
+			{% for achievement in achievements %}
+			<p>{{ achievement.achievement }}</p>
+			{% endfor %}
+			{% endif %}
+		</div>
+		<div class="col-6"></div>
+	</div>
+	</div>
+{% endblock %}

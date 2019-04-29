@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a href="{% url 'pages:index' %}" class="navbar-brand special">Resume Writer</a>
+        <button type="button" class="navbar-toggler" data-target="#navigation" data-toggle="collapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav mr-auto">
+                <li
+                {% if '/' == request.path %}
+                    class="nav-item active"
+                {% else %}
+                    class="nav-item"
+                {% endif %}
+                >
+                    <a href="{% url 'pages:index' %}" class="nav-link">
+                        <i class="fa fa-home"></i> Home
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                <li
+                {% if 'profile' in request.path %}
+                    class="nav-item active"
+                {% else %}
+                    class="nav-item"
+                {% endif %}
+                >
+                    <a href="{% url 'accounts:profile' %}" class="nav-link">
+                        <i class="fa fa-drivers-license"></i> Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="javascript:{document.getElementById('logout').submit()}" class="nav-link">
+                        <i class="fa fa-sign-out"></i> Logout
+                    </a>
+                </li>
+                <form action="{% url 'accounts:logout' %}" id="logout" method="post">
+                    {% csrf_token %}
+                    <input type="hidden">
+                </form>
+                <li class="nav-item dropdown mx-2">
+                    <button type="button" class="btn btn-outline-success dropdown-toggle" data-toggle="dropdown">{{ user.first_name }}</button>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'accounts:dashboard' %}" class="dropdown-item">Select Template</a>
+                        <a href="{% url 'info:get_info' %}" class="dropdown-item">Enter/Edit Your Information</a>
+                        <a href="{% url 'view:view_template' %}" class="dropdown-item">View Your Resume</a>
+                    </div>
+                </li>
+                {% else %}
+                <li
+                {% if 'login' in request.path %}
+                    class="nav-item active"
+                {% else %}
+                    class="nav-item"
+                {% endif %}
+                >
+                    <a href="{% url 'accounts:login' %}" class="nav-link">
+                        <i class="fa fa-sign-in"></i> Login
+                    </a>
+                </li>
+                <li
+                {% if 'register' in request.path %}
+                    class="nav-item active"
+                {% else %}
+                    class="nav-item"
+                {% endif %}
+                >
+                    <a href="{% url 'accounts:register' %}" class="nav-link">
+                        <i class="fa fa-sign-in"></i> Register
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
