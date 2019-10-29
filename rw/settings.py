@@ -138,4 +138,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
-4
+
+#shift to postgres for heroku
+
+try:
+    import dj_database_url
+
+    DATABASES['default'] = dj_database_url.config()
+except Exception as e:
+    print(str(e))
+    pass
