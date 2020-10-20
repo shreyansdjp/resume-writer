@@ -25,7 +25,7 @@ SECRET_KEY = 'x^*g#s$)7__g+-@t^jl7!6%v3un*@j*crnw1y)=fca52p25j(3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -138,4 +139,13 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     messages.SUCCESS: 'success',
 }
-4
+
+#shift to postgres for heroku
+
+try:
+    import dj_database_url
+
+    DATABASES['default'] = dj_database_url.config()
+except Exception as e:
+    print(str(e))
+    pass
